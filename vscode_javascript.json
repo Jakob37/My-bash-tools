@@ -1,0 +1,9 @@
+{
+  "key": "alt+i alt+a",
+  "command": "editor.action.insertSnippet",
+  "when": "editorTextFocus",
+  "args": {
+      "name": "type_assert",
+      "snippet": "/** @type {$0} */ ($TM_SELECTED_TEXT)"
+  }
+}
