@@ -1,9 +1,17 @@
-{
-  "key": "alt+i alt+a",
-  "command": "editor.action.insertSnippet",
-  "when": "editorTextFocus",
-  "args": {
+[
+  {
+    "key": "alt+i alt+a",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus",
+    "args": {
       "name": "type_assert",
       "snippet": "/** @type {$0} */ ($TM_SELECTED_TEXT)"
+  },
+  {
+    "key": "alt+i alt+t",
+    "command": "editor.action.insertSnippet",
+    "args": {
+      "snippet": "/** @type {$0} */\n"
   }
-}
+]
+
