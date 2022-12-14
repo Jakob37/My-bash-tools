@@ -16,3 +16,13 @@ alias a="git add -A ."
 alias aa="git add -A :/"
 alias aac="git add -A :/; git commit -m"
 
+#get_branch() {
+#	git rev-parse --abbrev-ref HEAD;
+#}
+
+#alias sr="var=$(git rev-parse --abbrev-ref HEAD); echo ${var}; git push --set-upstream origin ${var}"
+function setupremote() {
+	local tmpvar2=$(git branch --show-current);
+	echo ${tmpvar2};
+	git push --set-upstream origin ${tmpvar2};
+}
