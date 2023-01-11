@@ -16,10 +16,6 @@ alias a="git add -A ."
 alias aa="git add -A :/"
 alias aac="git add -A :/; git commit -m"
 
-#get_branch() {
-#	git rev-parse --abbrev-ref HEAD;
-#}
-
 function gitpush() {
 	local tmpvar2=$(git branch --show-current);
 	git push --set-upstream origin ${tmpvar2};
