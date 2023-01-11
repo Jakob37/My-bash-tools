@@ -20,9 +20,7 @@ alias aac="git add -A :/; git commit -m"
 #	git rev-parse --abbrev-ref HEAD;
 #}
 
-#alias sr="var=$(git rev-parse --abbrev-ref HEAD); echo ${var}; git push --set-upstream origin ${var}"
-function setupremote() {
+function gitpush() {
 	local tmpvar2=$(git branch --show-current);
-	echo ${tmpvar2};
 	git push --set-upstream origin ${tmpvar2};
 }
