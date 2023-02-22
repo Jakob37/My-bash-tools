@@ -4,6 +4,7 @@ alias p="git pull"
 alias co="git checkout"
 alias pm="git pull origin master"
 alias pmp="echo 'Pull and push'; git pull; git pull origin master; git push"
+alias pmp="echo 'Pull and push (develop)'; git pull; git pull origin develop; git push"
 alias s="git status"
 alias pu="git push"
 
