@@ -17,6 +17,8 @@ alias a="git add -A ."
 alias aa="git add -A :/"
 alias aac="git add -A :/; git commit -m"
 
+alias lci="git log --oneline | head -1 | cut -f1 -d\" \""
+
 function gitpush() {
 	local tmpvar2=$(git branch --show-current);
 	git push --set-upstream origin ${tmpvar2};
