@@ -13,6 +13,11 @@ alias ds="du -sh"
 alias compress="tar -czf"
 alias offline="unshare -n -r"
 alias rand10="head /dev/urandom | tr -dc A-Za-z0-9 | head -c10"
+alias noprompt="export PS1=\"$ \""
+
+alias lstop="watch ls"
+alias grepf="grep \"^>\""
+alias sumcol="paste -s -d + | bc"
 
 function lessl {
 	path=$(ls $1 | tail -1)
@@ -26,3 +31,24 @@ function tailfl {
 	path = $(ls $@ | tail -1)
 	tail -f $1${path}
 }
+
+function deref {
+	cp $1 $1.here
+	rm $1
+	mv $1.here $1
+}
+
+function cdl {
+	path=$(ls $@ | tail -1)
+	cd ${path}
+	pwd
+	ls
+}
+
+function cl {
+	cd $1
+	ls
+}
+
+
+
