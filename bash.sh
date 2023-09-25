@@ -22,6 +22,9 @@ alias sumcol="paste -s -d + | bc"
 function listfiles {
 	find $1 -maxdepth 1 -not -type d
 }
+function listdirs {
+	find $1 -maxdepth 1 -type d
+}
 
 function lessf {
 	path=$(listfiles $1 | head -1)
@@ -49,19 +52,15 @@ function deref {
 	mv $1.here $1
 }
 function cdl {
-	path=$(listfiles $@ | tail -1)
+	path=$(listdirs $@ | tail -1)
 	cd ${path}
 	pwd
 	ls
 }
 function cdf {
-	path=$(listfiles $@ | head -1)
+	path=$(listdirs $@ | head -1)
 	cd ${path}
 	pwd
-	ls
-}
-function listfiles {
-	cd $1
 	ls
 }
 function vcfhead {
