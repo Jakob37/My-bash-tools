@@ -68,3 +68,7 @@ function vcfhead {
 	grep -v "^##" | head -1
 	grep -v "^#" | head -10
 }
+function zvcfhead {
+	zgrep -v "^##" | head -1
+	zgrep -v "^#" | head -10
+}
