@@ -19,24 +19,28 @@ alias lstop="watch ls"
 alias grepf="grep \"^>\""
 alias sumcol="paste -s -d + | bc"
 
+function listfiles {
+	find $1 -maxdepth 1 -not -type d
+}
+
 function lessf {
-	path=$(ls $1 | head -1)
+	path=$(listfiles $1 | head -1)
 	less $1${path}
 }
 function lessl {
-	path=$(ls $1 | tail -1)
+	path=$(listfiles $1 | tail -1)
 	less $1${path}
 }
 function tailf {
-	path=$(ls $1 | head 1)
+	path=$(listfiles $1 | head -1)
 	tail $1${path}
 }
 function taill {
-	path=$(ls $1 | tail -1)
+	path=$(listfiles $1 | tail -1)
 	tail $1${path}
 }
 function tailfl {
-	path = $(ls $@ | tail -1)
+	path = $(listfiles $@ | tail -1)
 	tail -f $1${path}
 }
 function deref {
@@ -45,18 +49,18 @@ function deref {
 	mv $1.here $1
 }
 function cdl {
-	path=$(ls $@ | tail -1)
+	path=$(listfiles $@ | tail -1)
 	cd ${path}
 	pwd
 	ls
 }
 function cdf {
-	path=$(ls $@ | head -1)
+	path=$(listfiles $@ | head -1)
 	cd ${path}
 	pwd
 	ls
 }
-function cl {
+function listfiles {
 	cd $1
 	ls
 }
