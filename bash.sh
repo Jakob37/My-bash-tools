@@ -64,5 +64,7 @@ function listfiles {
 	cd $1
 	ls
 }
-
-
+function vcfhead {
+	grep -v "^##" | head -1
+	grep -v "^#" | head -10
+}
