@@ -44,7 +44,7 @@ function taill {
 	tail $1${path}
 }
 function tailfl {
-	path = $(listfiles $@ | tail -1)
+	path=$(listfiles $1 | tail -1)
 	tail -f $1${path}
 }
 function deref {
@@ -53,13 +53,13 @@ function deref {
 	mv $1.here $1
 }
 function cdl {
-	path=$(listdirs $@ | tail -1)
+	path=$(listdirs $1 | tail -1)
 	cd ${path}
 	pwd
 	ls
 }
 function cdf {
-	path=$(listdirs $@ | head -1)
+	path=$(listdirs $1 | head -1)
 	cd ${path}
 	pwd
 	ls
