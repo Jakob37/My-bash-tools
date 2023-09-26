@@ -65,10 +65,10 @@ function cdf {
 	ls
 }
 function vcfhead {
-	grep -v "^##" | head -1
-	grep -v "^#" | head -10
+	grep -v "^##" $1 | head -1
+	grep -v "^#" $1 | head -10
 }
 function zvcfhead {
-	zgrep -v "^##" | head -1
-	zgrep -v "^#" | head -10
+	zgrep -v "^##" $1 | head -1
+	zgrep -v "^#" $1 | head -10
 }
