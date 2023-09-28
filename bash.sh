@@ -76,3 +76,11 @@ function fullpath {
 	path=$(realpath $1)
 	echo ${path}
 }
+function table {
+	column -s$'\t' -t $1
+}
+function tablel {
+	table $1 | less -S
+}
+
+
