@@ -85,4 +85,4 @@ function table {
 function tablel {
 	table $1 | less -S
 }
-
+alias la="ls -a"
