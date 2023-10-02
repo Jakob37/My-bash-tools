@@ -24,10 +24,10 @@ alias grepf="grep \"^>\""
 alias sumcol="paste -s -d + | bc"
 
 function listfiles {
-	find $1 -maxdepth 1 -not -type d
+	find $1 -maxdepth 1 -not -type d | sort
 }
 function listdirs {
-	find $1 -maxdepth 1 -type d
+	find $1 -maxdepth 1 -type d | sort
 }
 
 function lessf {
