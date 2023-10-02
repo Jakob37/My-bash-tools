@@ -27,7 +27,7 @@ function listfiles {
 	find $1 -maxdepth 1 -not -type d | sort
 }
 function listdirs {
-	find $1 -maxdepth 1 -type d | sort
+	find $1 -maxdepth 1 -type d -not -path '*/.*' | sort
 }
 
 function lessf {
