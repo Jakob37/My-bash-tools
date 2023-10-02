@@ -86,3 +86,7 @@ function tablel {
 	table $1 | less -S
 }
 alias la="ls -a"
+
+function scheck {
+	srun --pty --jobid $1 htop
+}
