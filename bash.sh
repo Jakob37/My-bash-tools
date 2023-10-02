@@ -15,6 +15,9 @@ alias compress="tar -czf"
 alias offline="unshare -n -r"
 alias rand10="head /dev/urandom | tr -dc A-Za-z0-9 | head -c10"
 alias noprompt="export PS1=\"$ \""
+function prompt {
+	export PS1="$1 $ "
+}
 
 alias lstop="watch ls"
 alias grepf="grep \"^>\""
@@ -82,5 +85,4 @@ function table {
 function tablel {
 	table $1 | less -S
 }
-
 
