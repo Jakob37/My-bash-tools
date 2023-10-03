@@ -90,3 +90,4 @@ alias la="ls -a"
 function scheck {
 	srun --pty --jobid $1 htop
 }
+alias vcfpeek="zgrep -A1 \"#CHROM\""
