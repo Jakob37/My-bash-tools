@@ -21,6 +21,8 @@ function prompt {
 
 alias lstop="watch ls"
 alias grepf="grep \"^>\""
+alias grepic="grep -v \"^#\""
+alias grepicc="grep -v \"^##\""
 alias sumcol="paste -s -d + | bc"
 
 function listfiles {
