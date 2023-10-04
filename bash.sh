@@ -84,6 +84,7 @@ function fullpath {
 	path=$(realpath $1)
 	echo ${path}
 }
+alias fp=fullpath
 function table {
 	column -s$'\t' -t $1
 }
