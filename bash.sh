@@ -97,3 +97,6 @@ function scheck {
 	srun --pty --jobid $1 htop
 }
 alias vcfpeek="zgrep -m 1 -A1 \"#CHROM\""
+function vcfsum {
+	zgrep -v "^#" $1 | cut -f1 | uniq -c
+}
