@@ -106,5 +106,10 @@ function scheck {
 }
 alias vcfpeek="zgrep -m 1 -A1 \"#CHROM\""
 function vcfsum {
+	nbr_comments=$(zgrep "^##" $1 | wc -l)
+	echo " ${nbr_comments} ## rows"
+	grep -v "^##" $1 | grep -m 1 "^#"
 	zgrep -v "^#" $1 | cut -f1 | uniq -c
 }
+
+
