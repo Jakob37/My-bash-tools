@@ -67,6 +67,11 @@ function cdf {
 	pwd
 	ls
 }
+function cl {
+	cd $1
+	pwd
+	ls
+}
 function vcfhead {
 	grep -v "^##" $1 | head -1
 	grep -v "^#" $1 | head -10
