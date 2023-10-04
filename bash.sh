@@ -24,6 +24,12 @@ alias grepf="grep \"^>\""
 alias grepsc="grep -v \"^#\""
 alias grepscc="grep -v \"^##\""
 alias sumcol="paste -s -d + | bc"
+alias h1="head -1"
+alias h2="head -2"
+alias h3="head -3"
+alias h4="head -4"
+alias h5="head -5"
+alias h10="head -10"
 
 function listfiles {
 	find $1 -maxdepth 1 -not -type d | sort
