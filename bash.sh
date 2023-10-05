@@ -112,4 +112,6 @@ function vcfsum {
 	zgrep -v "^#" $1 | cut -f1 | uniq -c
 }
 
-
+function zhead {
+	zcat $1 | head
+}
