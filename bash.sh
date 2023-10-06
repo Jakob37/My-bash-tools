@@ -1,7 +1,7 @@
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias ....="cd ../../../.."
+alias .....="cd ../../../.."
 
 alias n="nautilus ."
 alias e="exit"
