@@ -113,5 +113,22 @@ function vcfsum {
 }
 
 function zhead {
-	zcat $1 | head
+    zcat $1 | head
 }
+
+function vcf_add_chr {
+    sed "/^#/! s/^/chr/" $1
+}
+function vcf_remove_chr {
+    sed "/^#/! s/^chr//" $1
+}
+
+function vcf_gz_addchr {
+    bgzip -d -c $1 | vcf_add_chr | bgzip -c > ${1%.vcf.gz}.chr.vcf.gz
+    tabix ${1%.vcf.gz}.chr.vcf.gz
+}
+function vcf_gz_removechr {
+    bgzip -d -c $1 | vcf_remove_chr | bgzip -c > ${1%.vcf.gz}.chr.vcf.gz
+    tabix ${1%.vcf.gz}.chr.vcf.gz
+}
+
