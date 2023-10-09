@@ -88,6 +88,9 @@ function zvcfhead {
 	zgrep -v "^##" $1 | head -1
 	zgrep -v "^#" $1 | head -10
 }
+function vcfnrec {
+    zgrep -v "^#" $1 | wc -l
+}
 function fullpath {
 	path=$(realpath $1)
 	echo ${path}
