@@ -84,6 +84,9 @@ function cl {
 function vcfheader {
     zgrep "^##" $1
 }
+function vcfheaderl {
+    zgrep "^##" $1 | less
+}
 function vcfhead {
 	zgrep -v "^##" $1 | head -1
 	zgrep -v "^#" $1 | head -10
