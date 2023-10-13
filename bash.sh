@@ -138,3 +138,4 @@ function vcf_gz_removechr {
     tabix ${1%.vcf.gz}.chr.vcf.gz
 }
 
+shopt -s direxpand
