@@ -81,11 +81,10 @@ function cl {
 	pwd
 	ls
 }
-function vcfhead {
-	grep -v "^##" $1 | head -1
-	grep -v "^#" $1 | head -10
+function vcfheader {
+    zgrep "^##" $1
 }
-function zvcfhead {
+function vcfhead {
 	zgrep -v "^##" $1 | head -1
 	zgrep -v "^#" $1 | head -10
 }
