@@ -129,13 +129,15 @@ function zhead {
 #    sed "/^#/! s/^chr//" $1
 #}
 
-function vcf_gz_addchr {
-    bgzip -d -c $1 | vcf_add_chr | bgzip -c > ${1%.vcf.gz}.chr.vcf.gz
+function vcf_addchr {
+    bgzip -d -c $1 | sed "/^#/! s/^/chr/" | bgzip -c > ${1%.vcf.gz}.chr.vcf.gz
     tabix ${1%.vcf.gz}.chr.vcf.gz
 }
-function vcf_gz_removechr {
-    bgzip -d -c $1 | vcf_remove_chr | bgzip -c > ${1%.vcf.gz}.chr.vcf.gz
+function vcf_removechr {
+    bgzip -d -c $1 | sed "/^#/! s/^chr//" | bgzip -c > ${1%.vcf.gz}.chr.vcf.gz
     tabix ${1%.vcf.gz}.chr.vcf.gz
 }
 
 shopt -s direxpand
+HISTSIZE=1000000
+HISTFILESIZE=1000000
