@@ -105,6 +105,7 @@ function table {
 function tablel {
 	table $1 | less -S
 }
+alias tl="tablel"
 alias la="ls -a"
 
 function scheck {
