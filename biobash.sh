@@ -19,7 +19,6 @@ function vcf_get {
     if [[ $# -eq 2 ]]; then
         chr=${2%:*}
         pos=${2#*:}
-        echo "Got chr pos ${chr} ${pos}"
         tabix $1 ${chr}:${pos}-${pos}
     fi
 
