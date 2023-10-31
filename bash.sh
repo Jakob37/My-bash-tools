@@ -11,7 +11,7 @@ alias lh="ls -sh"
 alias lal="ls -al"
 alias eb="vim ~/.bashrc"
 alias sb="source ~/.bashrc"
-alias ds="du -sh"
+#alias ds="du -sh"
 alias compress="tar -czf"
 alias offline="unshare -n -r"
 alias rand10="head /dev/urandom | tr -dc A-Za-z0-9 | head -c10"
@@ -142,3 +142,7 @@ function vcf_removechr {
 shopt -s direxpand
 HISTSIZE=1000000
 HISTFILESIZE=1000000
+
+function ds {
+    date +%y%m%d
+}
