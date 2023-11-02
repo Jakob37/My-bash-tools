@@ -146,3 +146,11 @@ HISTFILESIZE=1000000
 function ds {
     date +%y%m%d
 }
+
+function mkdsdir {
+    mkdir "$(ds)_${1}"
+}
+function touchds {
+    touch "$(ds)_${1}"
+}
+
