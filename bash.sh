@@ -153,4 +153,5 @@ function mkdsdir {
 function touchds {
     touch "$(ds)_${1}"
 }
+alias lesss="less -S"
 
