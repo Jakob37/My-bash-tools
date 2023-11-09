@@ -155,3 +155,17 @@ function touchds {
 }
 alias lesss="less -S"
 
+function mytree {
+    shopt -s globstar
+    for file in **/*
+    do
+        slash=${file//[^\/]}
+        case "${#slash}" in
+            0) echo "|-- ${file}";;
+            1) echo "|   |--  ${file}";;
+            2) echo "|   |   |--  ${file}";;
+        esac
+    done
+}
+
+

@@ -19,6 +19,8 @@ alias aac="git add -A :/; git commit -m"
 
 alias lci="git log --oneline | head -1 | cut -f1 -d\" \""
 
+alias ppgh="git pull; git push github"
+
 function gitpush() {
 	local tmpvar2=$(git branch --show-current);
 	git push --set-upstream origin ${tmpvar2};
