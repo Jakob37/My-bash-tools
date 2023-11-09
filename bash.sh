@@ -176,3 +176,13 @@ function cdn {
 
     cd $(ls -d */ | head -n $1 | tail -1)
 }
+
+if [[ -f ~/.targets.txt ]]; then
+    echo "----- Current targets -----"
+    cat ~/.targets.txt
+    echo "---------------------------"
+fi
+
+alias targets="vim ~/.targets.txt"
+
+
