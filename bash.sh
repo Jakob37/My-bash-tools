@@ -168,4 +168,11 @@ function mytree {
     done
 }
 
+function cdn {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: cdn <nbr>"
+        return 1
+    fi
 
+    cd $(ls -d */ | head -n $1 | tail -1)
+}
