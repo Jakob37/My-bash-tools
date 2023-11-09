@@ -156,14 +156,19 @@ function touchds {
 alias lesss="less -S"
 
 function mytree {
+
+    depth=$1
+
     shopt -s globstar
     for file in **/*
     do
         slash=${file//[^\/]}
         case "${#slash}" in
-            0) echo "|-- ${file}";;
-            1) echo "|   |--  ${file}";;
-            2) echo "|   |   |--  ${file}";;
+            0) [[ ${depth} == "" || ${depth} -gt 0 ]] && echo "|-- ${file}";;
+            1) [[ ${depth} == "" || ${depth} -gt 1 ]] && echo "|   |--  ${file}";;
+            2) [[ ${depth} == "" || ${depth} -gt 2 ]] && echo "|   |   |--  ${file}";;
+            3) [[ ${depth} -gt 3 ]] && echo "|   |   |   |--  ${file}";;
+            4) [[ ${depth} -gt 4 ]] && echo "|   |   |   |   |--  ${file}";;
         esac
     done
 }
