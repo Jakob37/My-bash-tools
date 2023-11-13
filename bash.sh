@@ -194,4 +194,4 @@ function targets {
 
 alias vimtargets="vim ~/.targets.txt"
 
-
+alias lss="ls *"
