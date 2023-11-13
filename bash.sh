@@ -31,6 +31,10 @@ alias h3="head -3"
 alias h4="head -4"
 alias h5="head -5"
 alias h10="head -10"
+alias tl="tablel"
+alias la="ls -a"
+alias lesss="less -S"
+alias lg="ls *"
 
 function listfiles {
 	find $1 -maxdepth 1 -not -type d | sort
@@ -105,8 +109,6 @@ function table {
 function tablel {
 	table $1 | less -S
 }
-alias tl="tablel"
-alias la="ls -a"
 
 function scheck {
 	srun --pty --jobid $1 htop
@@ -153,7 +155,6 @@ function mkdsdir {
 function touchds {
     touch "$(ds)_${1}"
 }
-alias lesss="less -S"
 
 function mytree {
 
@@ -194,4 +195,3 @@ function targets {
 
 alias vimtargets="vim ~/.targets.txt"
 
-alias lss="ls *"
