@@ -103,6 +103,13 @@ function fullpath {
 	echo ${path}
 }
 alias fp=fullpath
+# TBC
+#function fpl {
+#    in=${1%/}
+#    dirpath="${in%/*}"
+#    normaldir="$(cd ${dirpath}; pwd)"
+#    echo ${normaldir}
+#}
 function table {
 	column -s$'\t' -t $1
 }
@@ -195,3 +202,7 @@ function targets {
 
 alias vimtargets="vim ~/.targets.txt"
 
+echoerr() {
+    # https://stackoverflow.com/questions/2990414/echo-that-outputs-to-stderr
+    echo "$@" 1>&2
+}
