@@ -53,23 +53,23 @@ function listdirs {
 
 function lessf {
 	path=$(listfiles $1 | head -1)
-	less $1${path}
+	less1${path}
 }
 function lessl {
 	path=$(listfiles $1 | tail -1)
-	less $1${path}
+	less ${path}
 }
 function tailf {
 	path=$(listfiles $1 | head -1)
-	tail $1${path}
+	tail ${path}
 }
 function taill {
 	path=$(listfiles $1 | tail -1)
-	tail $1${path}
+	tail ${path}
 }
 function tailfl {
 	path=$(listfiles $1 | tail -1)
-	tail -f $1${path}
+	tail -f ${path}
 }
 function deref {
 	cp $1 $1.here
