@@ -214,3 +214,11 @@ echoerr() {
     # https://stackoverflow.com/questions/2990414/echo-that-outputs-to-stderr
     echo "$@" 1>&2
 }
+
+function ce() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: ce <subpath>"
+    fi
+
+    cd *"${1}"*
+}
