@@ -12,7 +12,6 @@ alias lal="ls -al"
 alias eb="vim ~/.bashrc"
 alias sb="source ~/.bashrc"
 #alias ds="du -sh"
-alias compress="tar -czf"
 alias offline="unshare -n -r"
 alias rand10="head /dev/urandom | tr -dc A-Za-z0-9 | head -c10"
 alias noprompt="export PS1=\"$ \""
@@ -35,6 +34,15 @@ alias tl="tablel"
 alias la="ls -a"
 alias lesss="less -S"
 alias lg="ls *"
+
+function compress {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: compress <dir>"
+        return 1
+    fi
+    echo "Running tar -czf ${1%/}.tar.gz $1"
+    tar -czf "${1%/}.tar.gz" "$1"
+}
 
 function listfiles {
 	find $1 -maxdepth 1 -not -type d | sort
