@@ -215,10 +215,30 @@ echoerr() {
     echo "$@" 1>&2
 }
 
-function ce() {
+function cg() {
     if [[ $# -ne 1 ]]; then
-        echo "Usage: ce <subpath>"
+        echo "Usage: ce <partial_folder_name>"
     fi
 
-    cd *"${1}"*
+    local pattern="*$1*"
+    local dirs=()
+
+    for item in ${pattern}; do
+        if [[ -d "${item}" ]]; then
+            dirs+=("${item}")
+        fi
+    done
+
+    if [[ ${#dirs[@]} -eq 0 ]]; then
+        echo "No directories found matching '$1'"
+        return 1
+    elif [[ ${#dirs[@]} -gt 1 ]]; then
+        echo "Multiple directories found"
+        printf "Matches: %s\n" "${dirs[@]}"
+        return 1
+    fi
+
+    cd "${dirs[0]}"
 }
+
+
