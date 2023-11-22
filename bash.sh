@@ -241,4 +241,19 @@ function cg() {
     cd "${dirs[0]}"
 }
 
+fl() {
+
+    echo "FIXME: Not done yet"
+
+    if [ -z "$1" ]; then
+        echo "Usage: unresolved_path <file_name>"
+        return 1
+    fi
+
+    local file_name=$(basename "$1")
+    local dir_name=$(dirname "$1")
+    local full_dir_path=$(cd "${dir_name}" && pwd)
+    local full_path="${full_dir_path}/${file_name}"
+    echo "${full_path}"
+}
 
