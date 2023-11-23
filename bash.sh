@@ -44,6 +44,10 @@ function compress {
     tar -czf "${1%/}.tar.gz" "$1"
 }
 
+function grep1 {
+    grep $1 | head -1
+}
+
 function listfiles {
 	find $1 -maxdepth 1 -not -type d | sort
 }
