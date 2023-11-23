@@ -45,7 +45,11 @@ function compress {
 }
 
 function grep1 {
-    grep $1 | head -1
+    grep $1 $2 | head -1
+}
+
+function zgrep1 {
+    zgrep $1 $2 | head -1
 }
 
 function listfiles {
