@@ -205,6 +205,7 @@ function cdn {
 
     cd $(ls -d */ | head -n $1 | tail -1)
 }
+alias cn="cdn"
 
 function targets {
     if [[ -f ~/.targets.txt ]]; then
