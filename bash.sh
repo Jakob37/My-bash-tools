@@ -266,3 +266,4 @@ fl() {
     echo "${full_path}"
 }
 
+alias cleandirs="rmdir *"
