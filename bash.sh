@@ -242,9 +242,8 @@ function cg() {
         echo "No directories found matching '$1'"
         return 1
     elif [[ ${#dirs[@]} -gt 1 ]]; then
-        echo "Multiple directories found"
+        echo "Multiple directories found, picking the first"
         printf "Matches: %s\n" "${dirs[@]}"
-        return 1
     fi
 
     cd "${dirs[0]}"
