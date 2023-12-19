@@ -25,3 +25,9 @@ function gitpush() {
 	local tmpvar2=$(git branch --show-current);
 	git push --set-upstream origin ${tmpvar2};
 }
+
+function pushall() {
+    for remote in $(git remote); do
+        git push ${remote}
+    done
+}
