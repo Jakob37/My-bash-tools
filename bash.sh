@@ -266,3 +266,12 @@ fl() {
 }
 
 alias cleandirs="rmdir *"
+t() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: t <sep>"
+        return 1
+    fi
+    column -t -s"${1}"
+}
+
+
