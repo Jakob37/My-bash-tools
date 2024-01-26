@@ -265,7 +265,7 @@ fl() {
     echo "${full_path}"
 }
 
-alias cleandirs="rmdir *"
+alias cleandirs="find . -maxdepth 1 -type d -empty; rmdir * 2> /dev/null"
 t() {
     if [[ $# -ne 1 ]]; then
         echo "Usage: t <sep>"
