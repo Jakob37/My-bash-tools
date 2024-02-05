@@ -33,7 +33,6 @@ alias h10="head -10"
 alias tl="tablel"
 alias la="ls -a"
 alias lesss="less -S"
-alias lg="ls *"
 
 function compress {
     if [[ $# -ne 1 ]]; then
@@ -227,6 +226,7 @@ echoerr() {
 function cg() {
     if [[ $# -ne 1 ]]; then
         echo "Usage: ce <partial_folder_name>"
+        return 1
     fi
 
     local pattern="*$1*"
@@ -248,6 +248,33 @@ function cg() {
 
     cd "${dirs[0]}"
 }
+
+function match_file() {
+    if [[ $# -ne 2 ]]; then
+        echo "Usage: match_file <command> <partial_file_name>"
+        return 1
+    fi
+    
+    local pattern="*$2*"
+    local files=()
+
+    for item in ${pattern}; do
+        if [[ -f "${item}" ]]; then
+            files+=("${item}")
+        fi
+    done
+
+    if [[ ${#files[@]} -eq 0 ]]; then
+        echo "No files found matching '$2'"
+        return 1
+    fi
+
+    echo "${files[0]}"
+    $1 "${files[0]}"
+}
+
+alias lg="match_file less"
+alias vg="match_file vim"
 
 fl() {
 
