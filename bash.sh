@@ -302,4 +302,4 @@ t() {
     column -t -s"${1}"
 }
 
-
+alias gi="grep -i"
