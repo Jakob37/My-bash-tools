@@ -207,6 +207,15 @@ function cdn {
 }
 alias cn="cdn"
 
+function lsg {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: lsg <pattern>"
+        return 1
+    fi
+
+    ls *$1*
+}
+
 function targets {
     if [[ -f ~/.targets.txt ]]; then
         echo "----- Current targets -----"
