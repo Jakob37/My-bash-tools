@@ -312,3 +312,11 @@ t() {
 }
 
 alias gi="grep -i"
+
+venv_activate() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: venv_activate <name>"
+        return 1
+    fi
+    source "/home/jakob/venv/${1}/bin/activate"
+}
