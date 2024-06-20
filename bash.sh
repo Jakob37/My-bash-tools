@@ -96,11 +96,6 @@ function cdf {
 	pwd
 	ls
 }
-function cl {
-	cd $1
-	pwd
-	ls
-}
 function vcfheader {
     zgrep "^##" $1
 }
