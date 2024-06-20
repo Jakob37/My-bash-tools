@@ -233,13 +233,14 @@ echoerr() {
     echo "$@" 1>&2
 }
 
-function cg() {
-    if [[ $# -ne 1 ]]; then
-        echo "Usage: ce <partial_folder_name>"
+function cd_glob() {
+    if [[ $# -ne 2 ]]; then
+        echo "Usage: cg <partial_folder_name> <fw|rv>"
         return 1
     fi
 
     local pattern="*$1*"
+    local order="$2"
     local dirs=()
 
     for item in ${pattern}; do
@@ -251,12 +252,40 @@ function cg() {
     if [[ ${#dirs[@]} -eq 0 ]]; then
         echo "No directories found matching '$1'"
         return 1
-    elif [[ ${#dirs[@]} -gt 1 ]]; then
+    fi
+
+    if [[ "${order}" == "rv" ]]; then
+        #dirs=( $(echo "${dirs[@]}" | tac -s ' ') )
+        dirs=( $(for dir in "${dirs[@]}"; do echo "$dir"; done | tac) )
+    elif [[ "${order}" != "fw" ]]; then
+        echo "Order should be fw or rv, found: ${order}"
+        return 1
+    fi
+
+    if [[ ${#dirs[@]} -gt 1 ]]; then
         echo "Multiple directories found, picking the first"
-        printf "Matches: %s\n" "${dirs[@]}"
+        printf "Matches: %s\n" "${dirs[*]}"
     fi
 
     cd "${dirs[0]}"
+}
+
+function cg() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: cg <partial_folder_name>"
+        return 1
+    fi
+
+    cd_glob $1 "fw"
+}
+
+function cgl() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: cgl <partial_folder_name>"
+        return 1
+    fi
+
+    cd_glob $1 "rv"
 }
 
 function match_file() {
