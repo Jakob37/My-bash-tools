@@ -33,6 +33,7 @@ alias h10="head -10"
 alias tl="tablel"
 alias la="ls -a"
 alias lesss="less -S"
+alias leS="less -S"
 alias pingg="ping www.google.com"
 
 function compress {
