@@ -259,7 +259,12 @@ function cd_glob() {
     fi
 
     if [[ ${#dirs[@]} -gt 1 ]]; then
-        echo "Multiple directories found, picking the first"
+
+        if [[ "${order}" == "fw" ]]; then
+            echo "Multiple directories found, picking the first"
+        else
+            echo "Multiple directories found, picking the last" 
+        fi
         printf "Matches: %s\n" "${dirs[*]}"
     fi
 
