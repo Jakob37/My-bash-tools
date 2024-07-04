@@ -5,10 +5,9 @@ alias .....="cd ../../../.."
 
 alias n="nautilus ."
 alias e="exit"
-alias l="ls"
+alias l="ls -p"
 alias lsa="ls -a"
 alias lh="ls -sh"
-alias lal="ls -al"
 alias eb="vim ~/.bashrc"
 alias sb="source ~/.bashrc"
 #alias ds="du -sh"
@@ -350,3 +349,5 @@ venv_activate() {
     fi
     source "/home/jakob/venv/${1}/bin/activate"
 }
+
+
