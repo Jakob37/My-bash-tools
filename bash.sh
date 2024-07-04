@@ -350,4 +350,7 @@ venv_activate() {
     source "/home/jakob/venv/${1}/bin/activate"
 }
 
+alias nw="chmod -w"
+alias yw="chmod +w"
+
 
