@@ -353,4 +353,7 @@ venv_activate() {
 alias nw="chmod -w"
 alias yw="chmod +w"
 
+lsh() {
+    ls $1 | head 
+}
 
