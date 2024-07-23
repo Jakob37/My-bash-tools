@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+import sys
+
+from typing import TextIO
+
+def main():
+
+    if len(sys.argv) < 2:
+        print("Usage: ncut col,names [file]")
+        sys.exit(1)
+    
+    selected_headers = sys.argv[1].split(",")
+
+    if len(sys.argv) == 3:
+        with open(sys.argv[2], 'r') as in_fh:
+            ncut(selected_headers, in_fh)
+
+
+def ncut(selected_headers: list[str], in_fh: TextIO, delim: str = "\t"):
+
+    headers = None
+    selected_inds = None
+
+    for line in in_fh:
+        line = line.rstrip()
+
+        if headers is None:
+            headers = line.split(delim)
+            selected_inds = [i for i, header_val in enumerate(headers) if header_val in selected_headers]
+
+            for header_val in selected_headers:
+                if header_val not in headers:
+                    print(f'Selected header "{header_val}" not found, skipping', file=sys.stderr)
+
+            if len(selected_inds) == 0:
+                print("None of the selected headers found", file=sys.stderr)
+                sys.exit(1)
+
+            print_slice(headers, selected_inds, delim)
+            continue
+        
+        fields = line.split(delim)
+        if len(fields) != len(headers):
+            raise ValueError(f"Number of fields ({len(fields)}) differs from number of headers ({len(selected_headers)})")
+        print_slice(fields, selected_inds, delim)
+
+
+def print_slice(fields: list[str], inds: list[int], delim: str):
+    selected_fields = [field for i, field in enumerate(fields) if i in inds]
+    out_str = delim.join(selected_fields)
+    print(out_str)
+
+
+if __name__ == "__main__":
+    main()
