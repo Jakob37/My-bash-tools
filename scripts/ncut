@@ -2,7 +2,7 @@
 
 import sys
 
-from typing import TextIO
+from typing import TextIO, List
 
 def main():
 
@@ -17,7 +17,7 @@ def main():
             ncut(selected_headers, in_fh)
 
 
-def ncut(selected_headers: list[str], in_fh: TextIO, delim: str = "\t"):
+def ncut(selected_headers: List[str], in_fh: TextIO, delim: str = "\t"):
 
     headers = None
     selected_inds = None
@@ -46,7 +46,7 @@ def ncut(selected_headers: list[str], in_fh: TextIO, delim: str = "\t"):
         print_slice(fields, selected_inds, delim)
 
 
-def print_slice(fields: list[str], inds: list[int], delim: str):
+def print_slice(fields: List[str], inds: List[int], delim: str):
     selected_fields = [field for i, field in enumerate(fields) if i in inds]
     out_str = delim.join(selected_fields)
     print(out_str)
