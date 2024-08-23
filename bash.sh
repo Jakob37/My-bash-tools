@@ -357,3 +357,17 @@ lsh() {
     ls $1 | head 
 }
 
+githubbookmark() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: githubbookmark <raw>"
+        return 1
+    fi
+
+    raw=$1
+    repo_name=$(echo ${raw} | sed "s|.*/||")
+    issue_nbr=$(echo ${raw} | sed "s/.*#/#/" | sed "s/ .*//")
+    pr_name=$(echo ${raw} | sed "s/ ·.*//")
+    echo "${repo_name} (${issue_nbr}): ${pr_name}"
+}
+
+alias rsync_nice="/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 20000"
