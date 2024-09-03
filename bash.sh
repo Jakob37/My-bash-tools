@@ -371,3 +371,21 @@ githubbookmark() {
 }
 
 alias rsync_nice="/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 20000"
+
+see() {
+    if [[ $# -ne 3 ]]; then
+        echo "Usage: see <interval> <times> <command>"
+        return 1
+    fi
+    interval=$1
+    times=$2
+    command=$3
+
+    count=0
+    while [[ $count -lt $times ]]; do
+        echo "Execution: ${count} / ${times}"
+        ${command}
+        sleep ${interval}
+        count=$((count + 1))
+    done
+}
