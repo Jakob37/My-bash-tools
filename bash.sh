@@ -371,6 +371,7 @@ githubbookmark() {
 }
 
 alias rsync_nice_20="/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 20000"
+alias rsync_nice_40="/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 40000"
 alias rsync_nice="/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync"
 
 see() {
