@@ -398,5 +398,5 @@ header() {
         return 1
     fi
 
-    head -1 $1 | tr "\n" "\t" | cat -n
+    head -1 $1 | tr "\t" "\n" | cat -n
 }
