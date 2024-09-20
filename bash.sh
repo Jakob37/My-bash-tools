@@ -389,3 +389,5 @@ see() {
         count=$((count + 1))
     done
 }
+
+alias first="ls -1 | head -1"
