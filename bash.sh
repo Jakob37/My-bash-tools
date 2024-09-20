@@ -391,3 +391,12 @@ see() {
 }
 
 alias first="ls -1 | head -1"
+
+header() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: header <file>"
+        return 1
+    fi
+
+    head -1 $1 | tr "\n" "\t" | cat -n
+}
