@@ -31,3 +31,7 @@ function pushall() {
         git push ${remote}
     done
 }
+
+alias gitcleancheck="git branch --merged | grep -v '\*\|master\|main\|develop\|dev'"
+alias gitcleando="git branch --merged | grep -v '\*\|master\|main\|develop\|dev' | xargs -n 1 git branch -d"
+
