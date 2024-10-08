@@ -35,3 +35,18 @@ function pushall() {
 alias gitcleancheck="git branch --merged | grep -v '\*\|master\|main\|develop\|dev'"
 alias gitcleando="git branch --merged | grep -v '\*\|master\|main\|develop\|dev' | xargs -n 1 git branch -d"
 
+function gitrenameorigin() {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage: gitrenameorigin <new name>"
+        return 1
+    fi
+
+    new_name=$1
+
+    url=$(git remote show origin | grep "Fetch URL" | sed "s/.* URL: //")
+    git remote add ${new_name} ${url}
+    git fetch github
+    git remote remove origin
+    echo "Remote renamed to GitHub"
+    git remote show
+}
