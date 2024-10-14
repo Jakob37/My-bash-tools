@@ -406,3 +406,9 @@ header() {
 
     head -1 $1 | tr "\t" "\n" | cat -n
 }
+
+alias lessh="less --header 1"
+function th {
+    column -s$'\t' -t $1 | less -S --header 1
+}
+

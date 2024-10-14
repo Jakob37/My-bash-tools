@@ -50,3 +50,8 @@ function gitrenameorigin() {
     echo "Remote renamed to GitHub"
     git remote show
 }
+
+function gitpushboth() {
+    git push github
+    git push hopper
+}
