@@ -128,9 +128,16 @@ alias fp=fullpath
 function table {
 	column -s$'\t' -t $1
 }
+function cable {
+    column -s$',' -t $1
+}
 function tablel {
 	table $1 | less -S
 }
+function cablel {
+    table $1 | less -S
+}
+alias cl=cablel
 
 function scheck {
 	srun --pty --jobid $1 htop
