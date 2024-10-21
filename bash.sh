@@ -135,7 +135,7 @@ function tablel {
 	table $1 | less -S
 }
 function cablel {
-    table $1 | less -S
+    cable $1 | less -S
 }
 alias cl=cablel
 
