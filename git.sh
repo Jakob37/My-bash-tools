@@ -55,3 +55,4 @@ function gitpushboth() {
     git push github
     git push hopper
 }
+alias pushboth="gitpushboth"
