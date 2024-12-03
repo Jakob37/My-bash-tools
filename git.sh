@@ -56,3 +56,4 @@ function gitpushboth() {
     git push hopper
 }
 alias pushboth="gitpushboth"
+alias changelog="git add CHANGELOG.md; git commit -m Changelog"

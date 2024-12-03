@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+import argparse
+import sys
+
+def main(infile, delim, debug):
+  
+    rows = []
+    longest = 0
+    for line in infile:
+        line = line.rstrip()
+        fields = line.split(delim)
+        rows.append(fields)
+        if debug:
+            print(fields)
+        if len(fields) > longest:
+            longest = len(fields)
+
+    for i in range(longest):
+        out_row = []
+        for row in rows:
+            if len(row) > i:
+                field = row[i]
+            else:
+                field = ""
+            out_row.append(field)
+        print(delim.join(out_row))
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("infile", nargs="?", type=argparse.FileType("r"), default=sys.stdin)
+    parser.add_argument("--delim", "-d", default="\t")
+    parser.add_argument("--debug", action="store_true")
+    args = parser.parse_args()
+    return args
+
+if __name__ == "__main__":
+    args = parse_arguments()
+    main(args.infile, args.delim, args.debug)
+
