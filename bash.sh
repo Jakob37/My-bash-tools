@@ -419,3 +419,14 @@ function th {
     column -s$'\t' -t $1 | less -S --header 1
 }
 
+alias 1="cn 1; ls"
+alias 2="cn 2; ls"
+alias 3="cn 3; ls"
+alias 4="cn 4; ls"
+alias 5="cn 5; ls"
+alias 6="cn 6; ls"
+alias 7="cn 7; ls"
+alias 8="cn 8; ls"
+alias 9="cn 9; ls"
+alias 10="cn 10; ls"
+
