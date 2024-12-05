@@ -57,3 +57,8 @@ function gitpushboth() {
 }
 alias pushboth="gitpushboth"
 alias changelog="git add CHANGELOG.md; git commit -m Changelog"
+
+function update_remote_to_smd() {
+    repo_name=$(git remote show github | grep Fetch | sed "s|.*/||")
+    git remote set-url github git@github.com:SMD-Bioinformatics-Lund/${repo_name}
+}
