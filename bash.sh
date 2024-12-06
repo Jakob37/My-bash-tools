@@ -433,3 +433,9 @@ alias 10="cn 10; ls"
 function remove_csq() {
     sed "/^#/! s/CSQ=[^;]*;//"
 }
+
+function remove_csqh() {
+    grep -v "^#" | sed "s/CSQ=[^;]*;//"
+}
+
+
