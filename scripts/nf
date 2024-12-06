@@ -1,0 +1,20 @@
+#!/bin/bash
+
+subcommand=$1
+command_arg=$2
+
+nfconfig="$(pwd)/.nfconfig"
+echo "Looking for .nfconfig in: ${nfconfig}"
+#cat ${nfconfig}
+
+if [[ "${subcommand}" == "work" ]]; then
+    if [[ "${command_arg}" == "" ]]; then
+        echo "Switching directly to work path"
+        work_path=$(cat "${nfconfig}" | grep "^work" | cut -f2 -d"=")
+        echo "cd ${work_path}"
+        cd "${work_path}"
+        exit 0
+    fi
+fi
+
+echo ${subcommand}

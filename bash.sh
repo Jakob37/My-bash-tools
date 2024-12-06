@@ -430,3 +430,6 @@ alias 8="cn 8; ls"
 alias 9="cn 9; ls"
 alias 10="cn 10; ls"
 
+function remove_csq() {
+    sed "/^#/! s/CSQ=[^;]*;//"
+}
