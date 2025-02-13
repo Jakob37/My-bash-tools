@@ -415,8 +415,13 @@ header() {
 }
 
 alias lessh="less --header 1"
-function th {
+th() {
     column -s$'\t' -t $1 | less -S --header 1
+}
+thl() {
+    last_edited=$(ls -t1 | head -1)
+    echo "Viewing ${last_edited}"
+    column -s$'\t' -t ${last_edited} | less -S --header 1
 }
 
 alias 1="cn 1; ls"
