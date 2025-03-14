@@ -443,4 +443,15 @@ function remove_csqh() {
     grep -v "^#" | sed "s/CSQ=[^;]*;//"
 }
 
+function grepfb() {
+    if [[ $# -ne 2 ]]; then
+        echo "Usage: grepfb <pattern_file> <target>"
+        return 1
+    fi
 
+    echo "Generating \b prefixed/suffixed pattern file"
+    tmpfile=$(mktemp)
+    echo "Creating file in: ${tmpfile}"
+    cat $1 | while read pattern; do echo "\b${pattern}\b"; done > "${tmpfile}"
+    grep -f "${tmpfile}" $2
+}
