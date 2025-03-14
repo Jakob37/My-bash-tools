@@ -59,4 +59,4 @@ def parse_arguments():
 
 if __name__ == "__main__":
     args = parse_arguments()
-    grep_f_column(args.file, args.data_file, args.column, args.delimiter, args.ignore_case)
+    grep_f_column(args.file, args.data_file, args.column, args.delimiter, args.list_delimiter, args.ignore_case)
