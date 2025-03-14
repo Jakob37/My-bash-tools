@@ -449,9 +449,8 @@ function grepfb() {
         return 1
     fi
 
-    echo "Generating \b prefixed/suffixed pattern file"
     tmpfile=$(mktemp)
-    echo "Creating file in: ${tmpfile}"
     cat $1 | while read pattern; do echo "\b${pattern}\b"; done > "${tmpfile}"
     grep -f "${tmpfile}" $2
+    rm "${tmpfile}"
 }
