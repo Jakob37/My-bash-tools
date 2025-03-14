@@ -448,9 +448,10 @@ function grepfb() {
         echo "Usage: grepfb <pattern_file> <target>"
         return 1
     fi
-
+   
     tmpfile=$(mktemp)
+    echo "${tmpfile}"
     cat $1 | while read pattern; do echo "\b${pattern}\b"; done > "${tmpfile}"
     grep -f "${tmpfile}" $2
-    rm "${tmpfile}"
+    #rm "${tmpfile}"
 }
