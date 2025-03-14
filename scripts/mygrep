@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+import argparse
+from typing import Set
+
+
+def load_patterns(pattern_file: str) -> Set[str]:
+    with open(pattern_file, "r", encoding="utf-8") as f:
+        return set(line.strip() for line in f if line.strip())
+
+
+def grep_f_column(
+    pattern_file: str,
+    data_file: str,
+    column: int,
+    delimiter: str = "\t",
+    list_delimiter=",",
+    case_insensitive: bool = False,
+):
+    """Mimics `grep -f` but applies filtering to a specific column."""
+    patterns = load_patterns(pattern_file)
+
+    if case_insensitive:
+        patterns = {p.lower() for p in patterns}
+
+    with open(data_file, "r", encoding="utf-8") as f:
+        for line in f:
+            fields = line.strip().split(delimiter)
+            if len(fields) >= column:
+                column_values = fields[column - 1].split(
+                    list_delimiter
+                )  # Split the multi-entry column
+                column_values = [val.strip() for val in column_values]  #
+                value = fields[column - 1]  # Convert column to 0-based index
+                if case_insensitive:
+                    column_values = [val.lower() for val in column_values]
+
+                if any(value in patterns for value in column_values):
+                    print(line.strip())
+
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        description="Mimic grep -f for full-word match in a specific column."
+    )
+    parser.add_argument("-f", "--file", required=True, help="File containing patterns to match.")
+    parser.add_argument("data_file", help="Data file to search within.")
+    parser.add_argument(
+        "-c", "--column", type=int, required=True, help="Column number (1-based) to match against."
+    )
+    parser.add_argument("-d", "--delimiter", default="\t", help="Column delimiter (default: tab).")
+    parser.add_argument("-l", "--list-delimiter", default="\t", help="List delimiter (default: ,).")
+    parser.add_argument(
+        "-i", "--ignore-case", action="store_true", help="Perform case-insensitive matching."
+    )
+
+    args = parser.parse_args()
+    return args
+
+
+if __name__ == "__main__":
+    args = parse_arguments()
+    grep_f_column(args.file, args.data_file, args.column, args.delimiter, args.ignore_case)
