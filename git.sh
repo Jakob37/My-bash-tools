@@ -62,3 +62,7 @@ function git_remote_to_smd() {
     repo_name=$(git remote show github | grep Fetch | sed "s|.*/||")
     git remote set-url github git@github.com:SMD-Bioinformatics-Lund/${repo_name}
 }
+
+alias pg="git push github"
+alias ph="git push hopper"
+alias phg="git push github && git push hopper"
