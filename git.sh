@@ -14,6 +14,7 @@ alias d="git checkout develop"
 alias dm="git difftool origin/master"
 alias c="git commit -m"
 alias a="git add -A ."
+alias ac="git add -A .; git commit -m"
 alias aa="git add -A :/"
 alias aac="git add -A :/; git commit -m"
 
