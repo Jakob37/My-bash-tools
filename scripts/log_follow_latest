@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Keep a "latest" file in a folder updated when new files are added
+# as long as this script is running
+
+current_latest=""
+
+NAME="latest"
+
+update_symlink() {
+    latest=$(ls -1t | grep -v "^${NAME}$" | head -n 1)
+    ln -sf "$latest" "${NAME}"
+    echo "Updated symlink to $latest"
+}
+
+update_symlink
+
+while true; do
+    latest=$(ls -1t | head -n 1)
+
+    if [[ "$latest" != "$current_latest" ]]; then
+        current_latest="$latest"
+        update_symlink
+    fi
+done
