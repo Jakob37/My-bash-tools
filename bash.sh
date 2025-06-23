@@ -213,6 +213,14 @@ function cdn {
 }
 alias cn="cdn"
 
+function cdln {
+    if [[ $# -ne 1 ]]; then
+        echo "Usage cdln <nbr>"
+        return 1
+    fi 
+    cd $(ls -d */ | tail -n $1 | head -1)
+}
+
 function lsg {
     if [[ $# -ne 1 ]]; then
         echo "Usage: lsg <pattern>"
