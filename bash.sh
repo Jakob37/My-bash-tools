@@ -209,17 +209,24 @@ function cdn {
         return 1
     fi
 
-    cd $(ls -d */ | head -n $1 | tail -1)
+    n=$1
+
+    if (( n >= 0 )); then
+        cd $(ls -d */ | head -n $1 | tail -1)
+    else
+        cd $(ls -d */ | tail -n $1 | head -1)
+    fi
+
 }
 alias cn="cdn"
 
-function cdln {
-    if [[ $# -ne 1 ]]; then
-        echo "Usage cdln <nbr>"
-        return 1
-    fi 
-    cd $(ls -d */ | tail -n $1 | head -1)
-}
+#function cdln {
+#    if [[ $# -ne 1 ]]; then
+#        echo "Usage cdln <nbr>"
+#        return 1
+#    fi 
+#    cd $(ls -d */ | tail -n $1 | head -1)
+#}
 
 function lsg {
     if [[ $# -ne 1 ]]; then
@@ -390,7 +397,7 @@ githubbookmark() {
 }
 
 alias rsync_nice_20="echo '/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 20000 -avPh'; /usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 20000 -avPh"
-alias rsync_nice_40="echo '/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 20000 -avPh'; /usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 40000 -avPh"
+alias rsync_nice_40="echo '/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 40000 -avPh'; /usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync --bwlimit 40000 -avPh"
 alias rsync_nice="/usr/bin/nice -n 19 /usr/bin/ionice -c2 -n7 rsync"
 
 see() {
