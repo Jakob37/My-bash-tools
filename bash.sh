@@ -448,7 +448,16 @@ alias 6="cn 6; ls"
 alias 7="cn 7; ls"
 alias 8="cn 8; ls"
 alias 9="cn 9; ls"
-alias 10="cn 10; ls"
+
+alias _1="cdn -1; ls"
+alias _2="cdn -2; ls"
+alias _3="cdn -3; ls"
+alias _4="cdn -4; ls"
+alias _5="cdn -5; ls"
+alias _6="cdn -6; ls"
+alias _7="cdn -7; ls"
+alias _8="cdn -8; ls"
+alias _9="cdn -9; ls"
 
 function remove_csq() {
     sed "/^#/! s/CSQ=[^;]*;//"
