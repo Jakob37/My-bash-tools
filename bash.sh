@@ -480,3 +480,11 @@ function grepfb() {
     grep -f "${tmpfile}" $2
     #rm "${tmpfile}"
 }
+
+swap_files() {
+  local tmp=$(mktemp)
+  mv "$1" "$tmp" &&
+  mv "$2" "$1" &&
+  mv "$tmp" "$2"
+}
+
