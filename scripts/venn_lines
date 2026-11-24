@@ -1,0 +1,169 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+    printf '%s\n' \
+        'Usage: venn_lines.sh [-o DIR | --output-dir DIR] [--] FILE1 FILE2 [FILE ...]' \
+        'Compare distinct lines and report all-file, pairwise and exact overlaps.' \
+        'With -o, write the summary and line lists to a new directory.'
+}
+
+output_dir=
+files=()
+while (($#)); do
+    case "$1" in
+        -h|--help) usage; exit 0 ;;
+        -o|--output-dir)
+            if [[ $# -lt 2 || -z $2 ]]; then
+                usage >&2
+                exit 2
+            fi
+            output_dir=$2
+            shift 2
+            ;;
+        --) shift; files+=("$@"); break ;;
+        -*) printf 'Unknown option: %s\n' "$1" >&2; exit 2 ;;
+        *) files+=("$1"); shift ;;
+    esac
+done
+
+if ((${#files[@]} < 2)); then
+    usage >&2
+    exit 2
+fi
+
+for file in "${files[@]}"; do
+    if [[ ! -f $file || ! -r $file ]]; then
+        printf 'Cannot read input file: %s\n' "$file" >&2
+        exit 2
+    fi
+done
+
+if [[ -n $output_dir && ( -e $output_dir || -L $output_dir ) ]]; then
+    printf 'Choose a new output directory: %s\n' "$output_dir" >&2
+    exit 2
+fi
+
+export LC_ALL=C
+scratch=$(mktemp -d)
+trap 'rm -rf -- "$scratch"' EXIT
+
+export VENN_LINES_EXPORT=
+if [[ -n $output_dir ]]; then
+    VENN_LINES_EXPORT=$scratch/output
+    mkdir -p -- "$VENN_LINES_EXPORT/pairwise" "$VENN_LINES_EXPORT/splits"
+fi
+
+tag_inputs() {
+    local index
+    for index in "${!files[@]}"; do
+        awk -v input="$((index + 1))" '{ print input "\t" $0 }' < "${files[index]}" || return
+    done
+}
+
+{
+    printf 'Inputs\n'
+    for index in "${!files[@]}"; do
+        printf '  %d  %q\n' "$((index + 1))" "${files[index]}"
+    done
+
+    # Sort by full line and then by input number. Repeated lines within an input count once.
+    tag_inputs | sort -u -t $'\t' -k2 -k1,1n | awk -v file_count="${#files[@]}" '
+        function append_line(path, text) {
+            print text >> path
+            close(path)
+        }
+
+        function empty_file(path) {
+            printf "%s", "" > path
+            close(path)
+        }
+
+        function tally_line(    split_number, text, i, j, pair) {
+            if (!(membership in split_numbers)) {
+                split_numbers[membership] = ++split_count
+                split_members[split_count] = membership
+            }
+            split_number = split_numbers[membership]
+            split_sizes[split_number]++
+            if (member_count == file_count) {
+                shared_all++
+            }
+
+            if (output != "") {
+                text = substr(previous_key, 2)
+                append_line(output "/splits/split-" split_number ".txt", text)
+                if (member_count == file_count) {
+                    append_line(output "/all.txt", text)
+                }
+            }
+
+            for (i = 1; i < member_count; i++) {
+                for (j = i + 1; j <= member_count; j++) {
+                    pair = members[i] "-" members[j]
+                    pair_sizes[pair]++
+                    if (output != "") {
+                        append_line(output "/pairwise/" pair ".txt", text)
+                    }
+                }
+            }
+        }
+
+        BEGIN {
+            output = ENVIRON["VENN_LINES_EXPORT"]
+            if (output != "") {
+                empty_file(output "/all.txt")
+            }
+        }
+
+        {
+            separator = index($0, "\t")
+            # Prefix the key so awk compares numeric-looking lines as strings.
+            key = "x" substr($0, separator + 1)
+            if (key != previous_key) {
+                if (NR > 1) {
+                    tally_line()
+                }
+                previous_key = key
+                member_count = 0
+                membership = ""
+            }
+
+            input = substr($0, 1, separator - 1)
+            membership = membership (member_count ? "," : "") input
+            members[++member_count] = input
+        }
+
+        END {
+            if (NR > 0) {
+                tally_line()
+            }
+
+            printf "\nShared among all: %d\n", shared_all
+            printf "\nPairwise overlaps (including lines shared with other inputs)\n"
+            for (i = 1; i < file_count; i++) {
+                for (j = i + 1; j <= file_count; j++) {
+                    pair = i "-" j
+                    count = pair_sizes[pair] + 0
+                    printf "  %d + %d: %d\n", i, j, count
+                    if (output != "" && count == 0) {
+                        empty_file(output "/pairwise/" pair ".txt")
+                    }
+                }
+            }
+
+            printf "\nExact splits by input number\n"
+            for (i = 1; i <= split_count; i++) {
+                printf "  split-%d (%s): %d\n", i, split_members[i], split_sizes[i]
+            }
+        }
+    '
+} > "$scratch/summary.txt"
+
+if [[ -n $output_dir ]]; then
+    cp -- "$scratch/summary.txt" "$VENN_LINES_EXPORT/summary.txt"
+    mkdir -- "$output_dir"
+    cp -R -- "$VENN_LINES_EXPORT/." "$output_dir"
+fi
+
+cat -- "$scratch/summary.txt"
