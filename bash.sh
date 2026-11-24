@@ -481,7 +481,7 @@ function grepfb() {
     #rm "${tmpfile}"
 }
 
-swap_files() {
+util_swap_files() {
   local tmp=$(mktemp)
   mv "$1" "$tmp" &&
   mv "$2" "$1" &&
@@ -500,4 +500,18 @@ util_shared_files() {
         <(find "$2" -maxdepth 1 -type f -name "$pattern" -printf '%f\n' | LC_ALL=C sort)
 }
 
+util_shared_lines() (
+    if [[ $# -ne 2 || ! -f $1 || ! -r $1 || ! -f $2 || ! -r $2 ]]; then
+        echo 'Usage: shared_lines FILE1 FILE2 (both files must be readable)' >&2
+        return 2
+    fi
+
+    export LC_ALL=C
+    scratch=$(mktemp -d) || return
+    trap 'rm -f -- "$scratch/first" "$scratch/second"; rmdir -- "$scratch"' EXIT
+
+    sort -u -- "$1" > "$scratch/first" || return
+    sort -u -- "$2" > "$scratch/second" || return
+    comm -12 "$scratch/first" "$scratch/second"
+)
 
