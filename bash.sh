@@ -488,3 +488,17 @@ swap_files() {
   mv "$tmp" "$2"
 }
 
+shared_files() {
+    if [[ $# -lt 2 || $# -gt 3 || ! -d $1 || ! -d $2 ]]; then
+        echo 'Usage: shared_files DIR1 DIR2 [PATTERN]' >&2
+        return 2
+    fi
+
+    local pattern="${3:-*}"
+    LC_ALL=C comm -12 \
+        <(find "$1" -maxdepth 1 -type f -name "$pattern" -printf '%f\n' | LC_ALL=C sort) \
+        <(find "$2" -maxdepth 1 -type f -name "$pattern" -printf '%f\n' | LC_ALL=C sort) \
+        | wc -l
+}
+
+
