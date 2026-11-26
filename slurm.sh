@@ -1,4 +1,5 @@
 # Source this file in Bash to load the Slurm helpers.
+# The recent-job shortcuts use GNU date.
 #
 # slurm_recent [LOOKBACK]    List CP_ driver jobs since now minus LOOKBACK.
 #                            Examples: 30minutes, 12hours, 2days.
@@ -12,14 +13,21 @@ slurm_cp_jobs() (
         return 2
     fi
 
+    local end_args=()
+    if [[ -n "${2:-}" ]]; then
+        end_args=(--endtime="$2")
+    fi
+
     set -o pipefail
-    sacct -a -X -P --starttime="$1" --endtime="${2:-now}" \
+    sacct -a -X -P --starttime="$1" "${end_args[@]}" \
         --format=JobID,JobName%80,Partition,NodeList,Start,End,State,ExitCode \
         | awk -F'|' 'NR == 1 || $2 ~ /^CP_/'
 )
 
 slurm_recent() {
-    slurm_cp_jobs "now-${1:-1hour}"
+    local start_time
+    start_time="$(date -d "${1:-1hour} ago" '+%Y-%m-%dT%H:%M:%S')" || return
+    slurm_cp_jobs "$start_time"
 }
 
 slurm_recent_1h() {
