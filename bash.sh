@@ -515,3 +515,5 @@ util_shared_lines() (
     comm -12 "$scratch/first" "$scratch/second"
 )
 
+alias prefix="util, slurm"
+
