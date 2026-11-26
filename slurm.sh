@@ -1,8 +1,9 @@
 # Source this file in Bash to load the Slurm helpers.
 # The recent-job shortcuts use GNU date.
 #
-# slurm_recent [LOOKBACK]    List CP_ driver jobs since now minus LOOKBACK.
-#                            Examples: 30minutes, 12hours, 2days.
+# slurm_recent [LOOKBACK] [--table]
+#     List CP_ driver jobs for a lookback such as 30minutes or 12hours.
+#     Pass --table to any slurm_recent shortcut to page an aligned table.
 # slurm_cp_jobs START [END]  List CP_ driver jobs in a Slurm time window.
 # slurm_follow_latest [DIR [GLOB]]
 #                            Follow the newest matching log as new logs appear.
@@ -25,25 +26,46 @@ slurm_cp_jobs() (
 )
 
 slurm_recent() {
+    local lookback=1hour
+    if (( $# )) && [[ "$1" != --table ]]; then
+        lookback="${1:-1hour}"
+        shift
+    fi
+    if [[ $# -gt 1 || ( $# -eq 1 && "$1" != --table ) ]]; then
+        printf 'Usage: slurm_recent [LOOKBACK] [--table]\n' >&2
+        return 2
+    fi
+
     local start_time
-    start_time="$(date -d "${1:-1hour} ago" '+%Y-%m-%dT%H:%M:%S')" || return
-    slurm_cp_jobs "$start_time"
+    start_time="$(date -d "$lookback ago" '+%Y-%m-%dT%H:%M:%S')" || return
+    if [[ "${1:-}" != --table ]]; then
+        slurm_cp_jobs "$start_time"
+        return
+    fi
+
+    local rows
+    rows="$(slurm_cp_jobs "$start_time")" || return
+    if declare -F tablel >/dev/null; then
+        printf '%s\n' "$rows" | tr '|' '\t' | tablel /dev/stdin
+    else
+        printf '%s\n' "$rows" | column -s '|' -t | less -S
+    fi
 }
 
 slurm_recent_1h() {
-    slurm_recent 1hour
+    slurm_recent 1hour "$@"
 }
 
 slurm_recent_6h() {
-    slurm_recent 6hours
+    slurm_recent 6hours "$@"
 }
 
 slurm_recent_12h() {
-    slurm_recent 12hours
+    slurm_recent 12hours "$@"
 }
 
 slurm_recent_24h() {
-    slurm_recent 24hours
+    slurm_recent 24hours "$@"
 }
 
 slurm_follow_latest() (
